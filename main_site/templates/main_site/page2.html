@@ -1,0 +1,63 @@
+{% extends "Base.html" %}
+{% load static %}
+
+    {% block navbar %}
+
+        <div class="navbar-fixed transparent">
+            <nav class="transparent z-depth-0">
+            <div class="nav-wrapper transparent">
+                <a href="{% url 'main_site:homepage' %}" class="brand-logo center"><img src="{% static 'Logo.png' %}" style="width: 20%; height: 20%;"></a>
+                <ul class="right hide-on-med-and-down" style="margin-right: 4%;">
+                </a></li>
+                </ul>
+            </div>
+            </nav>
+        
+        </div>
+
+        <div class="row" style="margin: 5%;">
+
+        {%  if messages %}
+
+            {%  for x in messages   %}
+                
+                <script>M.toast({html: "{{x}}", classes: "blue rounded", displayLength: 2000});</script>
+                
+
+            {%  endfor  %}
+
+        {%  endif   %}
+
+    {% endblock %}
+
+    {% block content %}
+
+        <div style="background-color: rgba(146,180,211,0.5); color: white ; height: 140vh; width: 50%; margin-left: 25%; margin-right: 25%;">
+            <div style="margin: 0 auto; top: 10%; opacity: 1; font-weight: bold; background-color: rgba(256,256,256, 1); height: 80%; width: 80%; z-index: 1;text-align: center;
+            position: relative;">
+            
+            <h1 style=" color: dimgrey;">SignUp</h1>
+            <form method="POST" class="col s12" style="color: gray;">
+                {% csrf_token %}
+
+                
+                {% for x in form %}
+                <div>
+                    <label style="size: 20px;">{{x.label_tag}}</label>
+                    <p>{{x}}</p> 
+                    <p style="font-size: 10px; text-align: left;"> {{x.help_text}}</p>
+                </div>
+                
+                {%  endfor  %}
+
+                <h6 style="color: dimgrey;margin-top: 5%;">Already have an account, <a href="{% url 'main_site:login_page'%}">Login</a></h6>
+                <button class="btn waves-effect waves-light" type="submit" name="action" style="position: relative;margin-top: 5%; ">
+                    Register
+                </button>
+
+            </form>
+            
+          
+            </div>
+        </div>
+    {% endblock %}

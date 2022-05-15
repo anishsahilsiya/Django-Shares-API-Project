@@ -1,0 +1,77 @@
+{% extends "Base.html" %}
+{% load static %}
+
+{% block navbar %}
+
+        <div class="navbar-fixed transparent">
+            <nav class="transparent z-depth-0">
+            <div class="nav-wrapper transparent">
+                <a href="{% url 'main_site:homepage' %}" class="brand-logo center"><img src="{% static 'Logo.png' %}" style="width: 20%; height: 20%;"></a>
+                <ul class="left hide-on-med-and-down" style="margin-left: 4%;">
+                    {%  if user.is_authenticated    %}
+                    <li style="color: black; padding-right: 15px; font-size: 24px; ">Welcome, {{user.username}}</li>
+                    {%  endif   %}
+                </ul>
+                <ul class="right hide-on-med-and-down" style="margin-right: 4%;">
+                
+                {%  if user.is_authenticated    %}
+                <li><a href="{% url 'main_site:logout' %}" class="waves-effect waves-light btn red darken-2">Logout
+                </a></li>
+                {%  else    %}
+                <li><a href="{% url 'main_site:login_page' %}" class="waves-effect waves-light btn light-blue darken-2">Login
+                </a></li>
+                {%  endif   %}
+                </ul>
+                </a></li>
+                </ul>
+            </div>
+            </nav>
+        
+        </div>
+
+        <div class="row" style="margin: 5%;">
+
+        {%  if messages %}
+
+            {%  for x in messages  %}
+                
+                <script>M.toast({html: "{{x}}", classes: "blue rounded", displayLength: 2000});</script>
+                
+
+            {%  endfor  %}
+
+        {%  endif   %}
+
+    {% endblock %}
+
+    {% block content %}
+
+        <div style="background-color: rgba(146,180,211,0.5); color: white ; height: 100vh; width: 50%; margin-left: 25%; margin-right: 25%;">
+            <div style="margin: 0 auto; top: 10%; opacity: 1; font-weight: bold; background-color: rgba(256,256,256, 0.5); height: 80%; width: 80%; z-index: 1;text-align: center;
+            position: relative;">
+            
+                {%   for i in details   %}
+
+
+                    <ul class="collection with-header black-text transparent" style="text-align: center;">
+                        <li class="collection-header transparent"><h4>{{i.symbol}}</h4></li>
+                        <li class="collection-item transparent">Name : {{i.name}}</li>
+                        <li class="collection-item transparent">Sector : {{i.sector}}</li>
+                        <li class="collection-item transparent">Price : ${{i.price}}</li>
+                        <li class="collection-item transparent">Price/Earning : ${{i.price_earnings}}</li>
+                        <li class="collection-item transparent">Dividend Yeild : ${{i.dividend_yeild}}</li>
+                        <li class="collection-item transparent">Earning/Share : ${{i.earning_per_share}}</li>
+                        <li class="collection-item transparent">Marker Cap : ${{i.marker_cap}}</li>
+                        <li class="collection-item transparent">Earnings Before Interest, Taxes, Depreciation, and Amortization : ${{i.EBITDA}}</li>
+                        <li class="collection-item transparent">Price/Sales : ${{i.price_per_sales}}</li>
+                        <li class="collection-item transparent">Price/Book : ${{i.price_per_book}}</li>
+                        <a href="{{i.link}}" class="collection-item">SEC filings Link</a>
+
+                    </ul>
+
+
+                {%   endfor   %}
+          
+            </div>
+        </div>
+    {% endblock %}

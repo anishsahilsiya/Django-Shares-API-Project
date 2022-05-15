@@ -1,0 +1,111 @@
+{% extends "Base.html" %}
+{% load static %}
+
+    {% block navbar %}
+
+        <div class="navbar-fixed transparent">
+            <nav class="transparent z-depth-0">
+            <div class="nav-wrapper transparent">
+                <a href="{% url 'main_site:homepage' %}" class="brand-logo center"><img src="{% static 'Logo.png' %}" style="width: 20%; height: 20%;"></a>
+                <ul class="left hide-on-med-and-down" style="margin-left: 4%;">
+                    {%  if user.is_authenticated    %}
+                    <li style="color: black; padding-right: 15px; font-size: 24px; ">Welcome, {{user.username}}</li>
+                    {%  endif   %}
+                </ul>
+                <ul class="right hide-on-med-and-down" style="margin-right: 4%;">
+                
+                {%  if user.is_authenticated    %}
+                <li><a href="{% url 'main_site:logout' %}" class="waves-effect waves-light btn red darken-2">Logout
+                </a></li>
+                {%  else    %}
+                <li><a href="{% url 'main_site:login_page' %}" class="waves-effect waves-light btn light-blue darken-2">Login
+                </a></li>
+                {%  endif   %}
+                </ul>
+                </a></li>
+                </ul>
+            </div>
+            </nav>
+        
+        </div>
+
+        <div class="row" style="margin: 5%;">
+
+        {%  if messages %}
+
+            {%  for x in messages  %}
+                
+                <script>M.toast({html: "{{x}}", classes: "blue rounded", displayLength: 2000});</script>
+                
+
+            {%  endfor  %}
+
+        {%  endif   %}
+
+    {% endblock %}
+
+    {%   block content   %}
+
+        <div style="background-color: rgba(146,180,211,0.5); color: white;height: 170vh; width: 100%;position: relative;">
+            
+            <div style="position: relative; width:100%; z-index: 1; opacity: 0.5;">
+            <nav style="width:100%; float: left; background-color: black;">
+                <div class="nav-wrapper">
+                    <form>
+                    <div class="input-field">
+                        <input id="search" type="search" required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            
+
+
+                <div style="position: relative; float: left; width:100%; opacity: 0.7;">
+                <div class="row">
+                {%  for x in data  %}
+                    <div class="col s6" style="height: 220px;">
+                      <div class="card grey darken-4">
+                        <div class="card-content white-text">
+                          <span class="card-title">{{x.name}}</span>
+                          <div style="align-content: center;">
+                          {%    if x.sector    %}
+                          <p>Sector :  {{x.sector}}</p>
+                          <p>Symbol :  {{x.symbol}}</p>
+                          {%    endif    %}
+                          </div>
+                        </div>
+                        <div class="card-action">
+                          <a href="{% url 'main_site:company_page' company_id=x.id %}">Details</a>
+                        </div>
+                      </div>
+                    </div>
+                {%   endfor   %}
+                    </div>
+                </div>
+
+               
+
+                <div style="position: absolute; bottom: 0;width: 100%; text-align: center; background-color:black; opacity: 0.5;">
+                <ul class="pagination">
+                    {%  if data.has_previous    %}
+                        <li class="waves-effect"><a href="?page={{data.previous_page_number}}"><i class="material-icons">chevron_left</i></a></li>
+                    {%   else   %}
+                        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                    {%   endif   %}
+
+                    <li class="active black"><a href="?page={{data.number}}">Current page: {{data.number}}/{{data.paginator.num_pages}}</a></li>
+                
+                    {%  if data.has_next    %}
+                        <li class="waves-effect"><a href="?page={{data.next_page_number}}"><i class="material-icons">chevron_right</i></a></li>
+                    {%   else   %}
+                        <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                    {%   endif   %}
+                </ul>
+                </div>
+            </div>
+
+
+    {% endblock %}

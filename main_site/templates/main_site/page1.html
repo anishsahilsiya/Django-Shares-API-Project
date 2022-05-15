@@ -1,0 +1,62 @@
+{% extends "Base.html" %}
+{% load static %}
+
+	{% block navbar %}
+
+		<div class="navbar-fixed transparent">
+    		<nav class="transparent z-depth-0">
+      		<div class="nav-wrapper transparent">
+        		<a href="{%	url 'main_site:homepage' %}" class="brand-logo center"><img src="{% static 'Logo.png' %}" style="width: 20%; height: 20%;"></a>
+        		
+        		<ul class="left hide-on-med-and-down" style="margin-left: 4%;">
+        			{%	if user.is_authenticated	%}
+          			<li style="color: black; padding-right: 15px; font-size: 24px; ">Welcome, {{user.username}}</li>
+          			{%	endif	%}
+        		</ul>
+        		<ul class="right hide-on-med-and-down" style="margin-right: 4%;">
+        		
+        		{%	if user.is_authenticated	%}
+          		<li><a href="{%	url 'main_site:market_page' %}" class="waves-effect waves-light btn light-blue darken-2">Market</a></li>
+          		<li><a href="{%	url 'main_site:logout' %}" class="waves-effect waves-light btn red darken-2">Logout
+          		</a></li>
+        		{%	else	%}
+          		<li><a href="{%	url 'main_site:market_page' %}" class="waves-effect waves-light btn light-blue darken-2">Market</a></li>
+          		<li><a href="{%	url 'main_site:login_page' %}" class="waves-effect waves-light btn light-blue darken-2">Login
+          		</a></li>
+          		{%	endif	%}
+        		</ul>
+      		</div>
+    		</nav>
+  		
+  		</div>
+
+		<div class="row" style="margin: 5%;">
+
+
+		{%	if messages	%}
+
+			{%	for x in messages	%}
+				{%  if x.tags == 'success'   %}
+				<script>M.toast({html: "{{x}}", classes: "blue rounded", displayLength: 2000});</script>
+				{%	endif	%}
+			{%	endfor	%}
+
+		{%	endif	%}
+
+	{% endblock %}
+
+
+	<div>
+	{% block content %}
+
+
+		<div style="background-color: steelblue; color: white; opacity: 0.5; height: 100vh; width: 50%;">
+			<div style="padding: 15%; font-weight: bold;">
+				<h1>Welcome to StockManager</h1>
+				<h6>This Django-based webapp allows you to view and keep record of your shares</h6>
+				
+			</div>
+		</div>
+	{% endblock %}
+
+	</div>
