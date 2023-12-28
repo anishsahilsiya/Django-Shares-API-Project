@@ -16,7 +16,7 @@ Make sure you have the following installed before running the project:
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/django-shares-api.git
+    git clone https://github.com/anishsahilsiya/Django-Shares-API-Project.git
     cd django-shares-api
     ```
 
@@ -40,25 +40,20 @@ Make sure you have the following installed before running the project:
         source venv/bin/activate
         ```
 
-4. Install dependencies:
 
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-5. Migrate the database:
+4. Migrate the database:
 
     ```bash
     python manage.py migrate
     ```
 
-6. Run the development server:
+5. Run the development server:
 
     ```bash
     python manage.py runserver
     ```
 
-7. Open your browser and navigate to [http://localhost:8000](http://localhost:8000) to view the application.
+6. Open your browser and navigate to [http://localhost:8000](http://localhost:8000) to view the application.
 
 ## Configuration
 
